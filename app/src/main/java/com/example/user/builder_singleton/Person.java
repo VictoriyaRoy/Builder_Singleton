@@ -5,10 +5,6 @@ public class Person {
     private Integer yearOfBirth, colorOfHair, height, weight;
     private boolean haveChildren;
 
-    public Person(String name, Integer yearOfBirth) {
-        this.name = name;
-        this.yearOfBirth = yearOfBirth;
-    }
 
     public String getName() {
         return name;
@@ -34,37 +30,43 @@ public class Person {
         return haveChildren;
     }
 
-    public static Builder newBuilder(String name, Integer yearOfBirth) {
-        return new Person(name, yearOfBirth).new Builder();
-    }
 
-    public class Builder {
+    public static class Builder {
+        private Person newPerson;
+
+        public Builder(String name, Integer yearOfBirth) {
+            newPerson = new Person();
+            newPerson.name = name;
+            newPerson.yearOfBirth=yearOfBirth;
+
+        }
+
         public Builder setColorOfHair(Integer colorOfHair) {
-            Person.this.colorOfHair = colorOfHair;
+            newPerson.colorOfHair = colorOfHair;
 
             return this;
         }
 
         public Builder setHeight(Integer height) {
-            Person.this.height = height;
+            newPerson.height = height;
 
             return this;
         }
 
         public Builder setWeight(Integer weight) {
-            Person.this.weight = weight;
+            newPerson.weight = weight;
 
             return this;
         }
 
         public Builder setHaveChildren(boolean haveChildren) {
-            Person.this.haveChildren = haveChildren;
+            newPerson.haveChildren = haveChildren;
 
             return this;
         }
 
         public Person build() {
-            return Person.this;
+            return newPerson;
         }
     }
 }

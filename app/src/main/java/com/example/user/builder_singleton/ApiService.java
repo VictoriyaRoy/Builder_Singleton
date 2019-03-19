@@ -2,15 +2,18 @@ package com.example.user.builder_singleton;
 
 public class ApiService {
     private static ApiService instance;
-    public String value;
+    private String value;
+    private static final Object object = new Object();
 
-    public ApiService(String value) {
+    private ApiService(String value) {
         this.value = value;
     }
 
     public static ApiService getInstance(String value) {
-        if (instance == null) {
-            instance = new ApiService(value);
+        if (instance == null)
+            synchronized (object) {
+            if (instance == null)
+                instance = new ApiService(value);
 
         }
         return instance;
